@@ -196,7 +196,8 @@ public extension ExpressibleByReferenceOr {
 			}
 			names[keyPath] = path
 		}
-		return .ref(components: path, name)
+        // WISK: we convert names to snake case
+		return .ref(components: path, name.convertedToSnakeCase())
 	}
 
 	static func ref(components keyPath: WritableKeyPath<ComponentsObject, ComponentsMap<Object>?>, _ type: Any.Type) -> Self {
