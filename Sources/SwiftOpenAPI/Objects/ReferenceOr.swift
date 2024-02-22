@@ -235,8 +235,16 @@ public extension ExpressibleByReferenceOr<SchemaObject> {
 
 public extension ExpressibleByReferenceOr<ExampleObject> {
 
-	static func ref(example value: Encodable, dateFormat: DateEncodingFormat = .default, into examples: inout ComponentsMap<ExampleObject>) throws -> Self {
-		let encoder = AnyValueEncoder(dateFormat: dateFormat)
+    static func ref(
+        example value: Encodable,
+        keyEncodingStrategy: KeyEncodingStrategy = .convertToSnakeCase,
+        dateFormat: DateEncodingFormat = .default,
+        into examples: inout ComponentsMap<ExampleObject>
+    ) throws -> Self {
+        let encoder = AnyValueEncoder(
+            keyEncodingStrategy: keyEncodingStrategy,
+            dateFormat: dateFormat
+        )
 		let example = try encoder.encode(value)
 		let typeName = String.typeName(type(of: value))
 		var name = typeName

@@ -193,8 +193,15 @@ extension AnyValue: LosslessStringConvertible {
 
 public extension AnyValue {
 
-	static func encode(_ value: Encodable, dateFormat: DateEncodingFormat = .default) throws -> AnyValue {
-		let encoder = AnyValueEncoder(dateFormat: dateFormat)
+    static func encode(
+        _ value: Encodable,
+        keyEncodingStrategy: KeyEncodingStrategy = .convertToSnakeCase,
+        dateFormat: DateEncodingFormat = .default
+    ) throws -> AnyValue {
+        let encoder = AnyValueEncoder(
+            keyEncodingStrategy: keyEncodingStrategy,
+            dateFormat: dateFormat
+        )
 		return try encoder.encode(value)
 	}
 }
