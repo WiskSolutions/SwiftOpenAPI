@@ -99,7 +99,7 @@ public extension ParametersList {
 		_ value: Encodable,
 		in location: ParameterObject.Location,
 		dateFormat: DateEncodingFormat = .default,
-		keyEncodingStrategy: KeyEncodingStrategy = .default,
+		keyEncodingStrategy: KeyEncodingStrategy = .convertToSnakeCase,
 		schemas: inout ComponentsMap<SchemaObject>
 	) throws -> ParametersList {
 		try ParametersEncoder(location: location, dateFormat: dateFormat, keyEncodingStrategy: keyEncodingStrategy)
@@ -113,7 +113,7 @@ public extension ParametersList {
 		_ type: Decodable.Type,
 		in location: ParameterObject.Location,
 		dateFormat: DateEncodingFormat = .default,
-		keyEncodingStrategy: KeyEncodingStrategy = .default,
+		keyEncodingStrategy: KeyEncodingStrategy = .convertToSnakeCase,
 		schemas: inout ComponentsMap<SchemaObject>
 	) throws -> ParametersList {
 		try ParametersEncoder(location: location, dateFormat: dateFormat, keyEncodingStrategy: keyEncodingStrategy)

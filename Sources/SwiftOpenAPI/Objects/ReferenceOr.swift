@@ -215,7 +215,7 @@ public extension ExpressibleByReferenceOr<SchemaObject> {
 	static func encodeSchema(
 		_ value: Encodable,
 		dateFormat: DateEncodingFormat = .default,
-		keyEncodingStrategy: KeyEncodingStrategy = .default,
+		keyEncodingStrategy: KeyEncodingStrategy = .convertToSnakeCase,
 		into schemas: inout ComponentsMap<SchemaObject>
 	) throws -> Self {
 		let encoder = SchemeEncoder(dateFormat: dateFormat, keyEncodingStrategy: keyEncodingStrategy)
@@ -225,7 +225,7 @@ public extension ExpressibleByReferenceOr<SchemaObject> {
 	static func decodeSchema(
 		_ type: Decodable.Type,
 		dateFormat: DateEncodingFormat = .default,
-		keyEncodingStrategy: KeyEncodingStrategy = .default,
+		keyEncodingStrategy: KeyEncodingStrategy = .convertToSnakeCase,
 		into schemas: inout ComponentsMap<SchemaObject>
 	) throws -> Self {
 		let decoder = SchemeEncoder(dateFormat: dateFormat, keyEncodingStrategy: keyEncodingStrategy)

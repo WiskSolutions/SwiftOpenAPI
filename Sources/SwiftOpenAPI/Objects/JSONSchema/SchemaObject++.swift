@@ -65,7 +65,7 @@ public extension SchemaObject {
 	static func encode(
 		_ value: Encodable,
 		dateFormat: DateEncodingFormat = .default,
-		keyEncodingStrategy: KeyEncodingStrategy = .default,
+		keyEncodingStrategy: KeyEncodingStrategy = .convertToSnakeCase,
 		into schemas: inout ComponentsMap<SchemaObject>
 	) throws {
 		let encoder = SchemeEncoder(dateFormat: dateFormat, keyEncodingStrategy: keyEncodingStrategy)
@@ -75,7 +75,7 @@ public extension SchemaObject {
 	static func decode(
 		_ type: Decodable.Type,
 		dateFormat: DateEncodingFormat = .default,
-		keyEncodingStrategy: KeyEncodingStrategy = .default,
+		keyEncodingStrategy: KeyEncodingStrategy = .convertToSnakeCase,
 		into schemas: inout ComponentsMap<SchemaObject>
 	) throws {
 		let encoder = SchemeEncoder(dateFormat: dateFormat, keyEncodingStrategy: keyEncodingStrategy)

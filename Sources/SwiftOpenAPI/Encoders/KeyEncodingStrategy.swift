@@ -7,9 +7,7 @@ public struct KeyEncodingStrategy {
 
 public extension KeyEncodingStrategy {
 
-	static var `default`: KeyEncodingStrategy = .useDefaultKeys
-
-	static var useDefaultKeys: KeyEncodingStrategy = .custom { $0 }
+	static var `default`: KeyEncodingStrategy = .convertToSnakeCase
 
 	static func custom(_ encode: @escaping (String) -> String) -> KeyEncodingStrategy {
 		KeyEncodingStrategy(encode: encode)

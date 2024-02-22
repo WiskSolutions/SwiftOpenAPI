@@ -57,7 +57,7 @@ public extension ComponentsMap<HeaderObject> {
 	static func encode(
 		_ value: Encodable,
 		dateFormat: DateEncodingFormat = .default,
-		keyEncodingStrategy: KeyEncodingStrategy = .default,
+		keyEncodingStrategy: KeyEncodingStrategy = .convertToSnakeCase,
 		schemas: inout ComponentsMap<SchemaObject>
 	) throws -> ComponentsMap<HeaderObject> {
 		try HeadersEncoder(dateFormat: dateFormat, keyEncodingStrategy: keyEncodingStrategy)
@@ -70,7 +70,7 @@ public extension ComponentsMap<HeaderObject> {
 	static func decode(
 		_ type: Decodable.Type,
 		dateFormat: DateEncodingFormat = .default,
-		keyEncodingStrategy: KeyEncodingStrategy = .default,
+		keyEncodingStrategy: KeyEncodingStrategy = .convertToSnakeCase,
 		schemas: inout ComponentsMap<SchemaObject>
 	) throws -> ComponentsMap<HeaderObject> {
 		try HeadersEncoder(dateFormat: dateFormat, keyEncodingStrategy: keyEncodingStrategy)

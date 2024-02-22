@@ -41,7 +41,7 @@ public struct SpecificationExtensions: Codable, ExpressibleByDictionary, Equatab
 		decoder: JSONDecoder = JSONDecoder()
 	) throws {
 		encoder.keyEncodingStrategy = .specificationExtension
-		decoder.keyDecodingStrategy = .useDefaultKeys
+		decoder.keyDecodingStrategy = .convertFromSnakeCase
 		let data = try encoder.encode(value)
 		self = try decoder.decode(SpecificationExtensions.self, from: data)
 	}
@@ -141,7 +141,7 @@ public extension JSONDecoder.KeyDecodingStrategy {
 				return StringKey<String>("")
 			}
 
-			let string = last.stringValue.replacingOccurrences(of: "_", with: "-").toCamelCase(separator: "-")
+			let string = last.stringValue.replacingOccurrences(of: "_", with: "-").toCamelCase(separator: "_")
 			return StringKey(SpecificationExtensions.Key(stringLiteral: string))
 		}
 	}
@@ -155,7 +155,7 @@ public extension JSONEncoder.KeyEncodingStrategy {
 				return StringKey<String>("")
 			}
 
-			let string = last.stringValue.toSnakeCase(separator: "-").replacingOccurrences(of: "_", with: "-")
+			let string = last.stringValue.toSnakeCase(separator: "_").replacingOccurrences(of: "_", with: "-")
 			return StringKey(SpecificationExtensions.Key(stringLiteral: string))
 		}
 	}
