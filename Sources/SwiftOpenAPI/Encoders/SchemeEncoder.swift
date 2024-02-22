@@ -96,8 +96,12 @@ struct SchemeEncoder {
 							keyEncodingStrategy.encode($0)
 						}.mapValues {
                             try parse(value: $0, type: $0.type, into: &schemas, cache: &cache, needReparse: &needReparse)
-						},
-						required: Set(keyedInfo.fields.unorderedHash.filter { !$0.value.isOptional }.keys)
+                        },
+                        required: Set(
+                            keyedInfo.fields.unorderedHash.filter {
+                                !$0.value.isOptional
+                            }.keys.map { $0.toSnakeCase() }
+                        )
 					)
 					result = .value(schema)
 
