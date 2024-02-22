@@ -17,6 +17,8 @@ extension StringProtocol {
 				$0.components(separatedBy: .alphanumerics.inverted)
 			}
 			.joined()
+        // WISK: we turn all names into snake case so they match other places
+            .toSnakeCase()
 	}
 
 	func toCamelCase(separator: Character = "_") -> String {
