@@ -181,7 +181,7 @@ private struct AnyValueKeyedEncodingContainer<Key: CodingKey>: KeyedEncodingCont
 
 	@inline(__always)
 	private func str(_ key: Key) -> String {
-		key.stringValue
+        keyEncodingStrategy.encode(key.stringValue)
 	}
 
 	mutating func encodeNil(forKey key: Key) throws {
@@ -255,7 +255,10 @@ private struct AnyValueKeyedEncodingContainer<Key: CodingKey>: KeyedEncodingCont
 		result[str(key)] = try encoder.encode(value)
 	}
 
-	mutating func nestedContainer<NestedKey>(keyedBy _: NestedKey.Type, forKey key: Key) -> KeyedEncodingContainer<NestedKey> where NestedKey: CodingKey {
+    mutating func nestedContainer<NestedKey>(
+        keyedBy _: NestedKey.Type,
+        forKey key: Key
+    ) -> KeyedEncodingContainer<NestedKey> where NestedKey: CodingKey {
 		let strKey = str(key)
 		let container = AnyValueKeyedEncodingContainer<NestedKey>(
 			codingPath: nestedPath(for: key),

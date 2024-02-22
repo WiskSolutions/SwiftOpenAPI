@@ -57,7 +57,7 @@ public enum AnyValue: Codable, Equatable {
 		set {
 			switch self {
 			case var .object(value):
-				value[key] = newValue
+                value[key] = newValue
 				self = .object(value)
 			default:
 				break
