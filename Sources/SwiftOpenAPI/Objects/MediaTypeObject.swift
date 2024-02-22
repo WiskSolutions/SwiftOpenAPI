@@ -76,7 +76,9 @@ public extension MediaTypeObject {
 	) throws -> MediaTypeObject {
 		try MediaTypeObject(
 			schema: .encodeSchema(value, into: &schemas),
-			examples: [.typeName(type(of: value)): .ref(example: value, into: &examples)]
+            examples: [
+                .typeName(type(of: value)).toSnakeCase(): .ref(example: value, into: &examples)
+            ]
 		)
 	}
 

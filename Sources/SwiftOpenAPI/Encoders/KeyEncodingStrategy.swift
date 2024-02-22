@@ -19,7 +19,7 @@ public extension KeyEncodingStrategy {
 		.convertToSnakeCase(separator: "_")
 	}
 
-	static func convertToSnakeCase(separator: String) -> KeyEncodingStrategy {
+	static func convertToSnakeCase(separator: Character) -> KeyEncodingStrategy {
 		.custom {
 			$0.toSnakeCase(separator: separator)
 		}
