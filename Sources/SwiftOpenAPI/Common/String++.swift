@@ -40,24 +40,28 @@ extension StringProtocol {
 	}
 
 	func toSnakeCase(separator: Character = "_") -> String {
-        guard !self.isEmpty else { return .init(self) }
-        var words: [Range<String.Index>] = []
-        var wordStart = self.startIndex, searchIndex = self.index(after: wordStart)
-        while let upperCaseIndex = self[searchIndex...].firstIndex(where: \.isUppercase) {
-            words.append(wordStart..<upperCaseIndex)
-            wordStart = upperCaseIndex
-            guard let lowerCaseIndex = self[upperCaseIndex...].firstIndex(where: \.isLowercase) else {
-                break
+        guard !isEmpty else { return "" }
+        var result = ""
+        // Whether we should append a separator when we see a uppercase character.
+        var separateOnUppercase = true
+        for index in indices {
+            let nextIndex = self.index(after: index)
+            let character = self[index]
+            if character.isUppercase {
+                if separateOnUppercase, !result.isEmpty {
+                    // Append the separator.
+                    result += "\(separator)"
+                }
+                // If the next character is uppercase and the next-next character is lowercase, like "L" in "URLSession", we should separate words.
+                separateOnUppercase = nextIndex < endIndex && self[nextIndex].isUppercase && self.index(after: nextIndex) < endIndex && self[self.index(after: nextIndex)].isLowercase
+            } else {
+                // If the character is `separator`, we do not want to append another separator when we see the next uppercase character.
+                separateOnUppercase = character != separator
             }
-            searchIndex = lowerCaseIndex
-            if lowerCaseIndex != self.index(after: upperCaseIndex) {
-                let beforeLowerIndex = self.index(before: lowerCaseIndex)
-                words.append(upperCaseIndex..<beforeLowerIndex)
-                wordStart = beforeLowerIndex
-            }
+            // Append the lowercased character.
+            result += character.lowercased()
         }
-        words.append(wordStart..<self.endIndex)
-        return words.map { self[$0].decapitalized }.joined(separator: "\(separator)")
+        return result
 	}
 
     /// Returns the string with its first character lowercased.
