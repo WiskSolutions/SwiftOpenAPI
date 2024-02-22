@@ -155,7 +155,7 @@ public extension JSONEncoder.KeyEncodingStrategy {
 				return StringKey<String>("")
 			}
 
-			let string = last.stringValue.toSnakeCase(separator: "_").replacingOccurrences(of: "_", with: "-")
+			let string = last.stringValue.toSnakeCase(separator: "_")
 			return StringKey(SpecificationExtensions.Key(stringLiteral: string))
 		}
 	}
@@ -222,6 +222,7 @@ public extension SingleValueDecodingContainer {
 public extension SpecificationExtendable where Self: Encodable {
 
 	func json(encoder: JSONEncoder = JSONEncoder()) throws -> Data {
+        encoder.keyEncodingStrategy = .convertToSnakeCase
 		encoder.outputFormatting.insert(.sortedKeys)
 		return try encoder.encode(WithSpecExtensions(wrappedValue: self))
 	}
