@@ -17,7 +17,7 @@ let package = Package(
 	],
 	dependencies: [
 		.package(url: "https://github.com/pointfreeco/swift-custom-dump.git", from: "0.10.3"),
-        .package(url: "https://github.com/apple/swift-syntax.git", from: "509.0.2")
+        .package(url: "https://github.com/apple/swift-syntax.git", "509.0.2"..<"511.0.0")
 	],
 	targets: [
 		.target(
